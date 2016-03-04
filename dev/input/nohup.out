@@ -1,0 +1,1 @@
+WARNING: Please use -max_target_seqs to control the number of hits for output format 6. -num_alignments and -num_descriptions are ignored when output format 6 is used.

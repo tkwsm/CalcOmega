@@ -1,0 +1,14 @@
+> 
+>   t <-read.table("t", sep=" ")
+> #   s <-read.table("s", sep=" ")
+>   xsize <- nrow(t)
+> #   if( nrow(s) > nrow(t) ) xsize <- nrow(s)
+>   ysize <- ncol(t)
+> #   if( ncol(s) > ncol(t) ) ysize <- ncol(s)
+> 
+>   png( "omegaplot.png" )
+>   plot( (1:nrow(t)), sort( t ), col="blue", pch=1, xlim=c(0, xsize), ylim=c(0, ysize), xlab="", ylab="")
+ `[.data.frame`(x, order(x, na.last = na.last, decreasing = decreasing)) でエラー: 
+  undefined columns selected
+ 呼び出し:  plot ... xy.coords -> sort -> sort.default -> [ -> [.data.frame
+ 実行が停止されました 

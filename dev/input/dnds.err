@@ -1,0 +1,51 @@
+
+
+
+ CLUSTAL 2.1 Multiple Sequence Alignments
+
+
+Sequence format is Pearson
+Sequence 1: SPU_028765          98 aa
+Sequence 2: HPU_08151-mRNA-1    47 aa
+Start of Pairwise alignments
+Aligning...
+
+Sequences (1:2) Aligned. Score:  70
+Guide tree file created:   [./tmp.dkL2xu8OBI.dnd]
+
+There are 1 groups
+Start of Multiple Alignment
+
+Aligning...
+Group 1: Sequences:   2      Score:852
+Alignment Score 174
+
+CLUSTAL-Alignment file created  [./tmp.dkL2xu8OBI.aln]
+
+YN00 in paml version 4.8a, July 2014
+
+Reading options from /tmp/tmp.N3zUg9t8I2..
+
+
+ns = 2  	ls = 138
+Reading sequences, sequential format..
+Counting site patterns..  0:00
+          32 patterns at       46 /       46 sites (100.0%),  0:00
+
+
+(A) Nei-Gojobori (1986) method
+
+
+
+(B) Yang & Nielsen (2000) method
+
+kappa = 7.75
+
+  2 vs.   1
+
+
+(C) LWL85, LPB93 & LWLm methods
+
+   1   2
+
+Time used:  0:00
