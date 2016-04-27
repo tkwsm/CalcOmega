@@ -9,7 +9,6 @@ domain_fasta_f   = open( ARGV.shift )
 
 seqh = {}
 ff =FlatFile.new( FastaFormat, domain_fasta_f )
-origina_seq_name = ""
 ff.each do |e|
   dom_seq_name  = e.definition.split("\s")[0]
   base_seq_name = dom_seq_name.slice(/(^\S+)_\d+_\d+$/, 1)
