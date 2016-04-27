@@ -43,7 +43,8 @@
 usage="USAGE: ./program -o <Ortholog Table> -a <species-A-prot.fa> -b <species-B-prot.fa> -x <species-A-transcript.fa> -y <species-B-transcript.fa> -h <<show usage>> \n \n Please edit the following variable \"pal2nal\" to your installed path. \n"
 
 # PATH to pal2nal
- pal2nal="/Users/takeshik/bin/pal2nal.pl"
+ pal2nal="/home/takeshik/bin/pal2nal.pl"
+# pal2nal="/Users/takeshik/bin/pal2nal.pl"
 # pal2nal="/home/takeshik/src/pal2nal/pal2nal.v14/pal2nal.pl"
 
 # Template to create a control file for yn00 in the PAML
@@ -133,17 +134,22 @@ do
 #################################################################
 #  Get dN/dS Only
 #################################################################
-#  lwl85=`cat $tmpout_paml | grep LWL85:  | grep -v LWL85m | awk '{print $10}' 2>>dnds.err`
-#  lwl85m=`cat $tmpout_paml | grep LWL85m:| awk '{print $10}' 2>>dnds.err`
-#  lpb93=`cat $tmpout_paml | grep LPB93:  | awk '{print $10}' 2>>dnds.err`
+  lwl85=`cat $tmpout_paml | grep LWL85:  | grep -v LWL85m | awk '{print $10}' 2>>dnds.err`
+  lwl85m=`cat $tmpout_paml | grep LWL85m:| awk '{print $10}' 2>>dnds.err`
+  lpb93=`cat $tmpout_paml | grep LPB93:  | awk '{print $10}' 2>>dnds.err`
 #################################################################
 #  Get more information
 #################################################################
-  lwl85=`cat $tmpout_paml | grep LWL85:   | sed -e 's/.*w[ \f\n\r\t]\?\=[ \f\n\r\t]\?\([^ \f\n\r\t]\+\).*/\1/' 2>>dnds.err`
-  lwl85m=`cat $tmpout_paml | grep LWL85m: | sed -e 's/.*w[ \f\n\r\t]\?\=[ \f\n\r\t]\?\([^ \f\n\r\t]\+\).*/\1/' 2>>dnds.err`
-  lpb93=`cat $tmpout_paml | grep LPB93:   | sed -e 's/.*w[ \f\n\r\t]\?\=[ \f\n\r\t]\?\([^ \f\n\r\t]\+\).*/\1/' 2>>dnds.err`
+#  lwl85=`cat $tmpout_paml | grep LWL85:   | sed -e 's/.*w[ \f\n\r\t]\?\=[ \f\n\r\t]\?\([^ \f\n\r\t]\+\).*/\1/' 2>>dnds.err`
+#  lwl85m=`cat $tmpout_paml | grep LWL85m: | sed -e 's/.*w[ \f\n\r\t]\?\=[ \f\n\r\t]\?\([^ \f\n\r\t]\+\).*/\1/' 2>>dnds.err`
+#  lpb93=`cat $tmpout_paml | grep LPB93:   | sed -e 's/.*w[ \f\n\r\t]\?\=[ \f\n\r\t]\?\([^ \f\n\r\t]\+\).*/\1/' 2>>dnds.err`
 #################################################################
-
+#  Get more and more information
+#################################################################
+#  lwl85=`cat $tmpout_paml | grep LWL85:   2>>dnds.err`
+#  lwl85m=`cat $tmpout_paml | grep LWL85m: 2>>dnds.err`
+#  lpb93=`cat $tmpout_paml | grep LPB93:   2>>dnds.err`
+#################################################################
   lwl85=`echo $lwl85`
   lwl85m=`echo $lwl85m`
   lpb93=`echo $lpb93`
