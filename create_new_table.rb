@@ -1,8 +1,13 @@
-
+#!/usr/bin/ruby
 
 require 'rubygems'
 require 'bio'
 include Bio
+
+if ARGV.size == 0
+  print "create_new_table.rb <speAprot.fa> <speBprot.fa> <original-table>\n"
+  exit
+end
 
 fileA=FlatFile.new( FastaFormat, open( ARGV.shift ))
 fileB=FlatFile.new( FastaFormat, open( ARGV.shift ))
