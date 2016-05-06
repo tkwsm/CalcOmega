@@ -23,7 +23,7 @@ cdsh = {}
 pf.each{ |e| peph[ e.definition ] = e.aaseq }
 rf.each{ |e| rnah[ e.definition ] = e.naseq }
 
-STDERR.puts "STEP 1/4 Done"
+STDERR.puts "STEP 1/6 Done"
 
 dh = {}
 a = []
@@ -40,7 +40,7 @@ domtbloutf.each do |x|
   dh[ tid ][ pfamacc ] << [ dfrom, dto ]
 end
 
-STDERR.puts "STEP 2/4 Done"
+STDERR.puts "STEP 2/6 Done"
 
 def merge_region( region_array )
 
@@ -89,7 +89,7 @@ end
 # "expected"
 # p ma
 
-STDERR.puts "STEP 3/4 Done"
+STDERR.puts "STEP 3/6 Done"
 
 def create_domain_cluster_hash( region_array, dh, tid )
   domain_cluster_hash = {}
@@ -135,11 +135,14 @@ dh.each_key do |tid|
   domain_cluster_h[ tid ] = create_domain_cluster_hash( region_array, dh, tid )
 end
 
+STDERR.puts "STEP 4/6 Done Domain-Cluster-Hash Created."
+
 unless File.exist?("#{protfname}.phr")
   `makeblastdb -in #{protfname} -dbtype prot`
 end
 
-domain_cluster_h.each_key do |tid|
+domain_cluster_h.keys.each_with_index do |tid, i|
+  STDERR.puts " within STEP 5/6, #{i} / #{domain_cluster_h.keys.size} done." if i % 1000 == 0
   outdat=`echo "#{tid}" | screen_list2.pl -l - -f #{mrnafname} -k | blastx -query - -db #{protfname} -outfmt 6 -max_target_seqs 1 | head -1 `
   tstart = outdat.chomp.split("\t")[6].to_i
   tend   = outdat.chomp.split("\t")[7].to_i
@@ -147,6 +150,8 @@ domain_cluster_h.each_key do |tid|
   pend   = outdat.chomp.split("\t")[9].to_i
   cdsh[tid] = [ tstart, tend, pstart, pend ]
 end
+
+STDERR.puts "STEP 5/6 BlastX executed. CDS-Hash Created."
 
 domain_cluster_h.each_key do |tid|
   ts, te, ps, pe = cdsh[ tid ]
@@ -161,11 +166,14 @@ domain_cluster_h.each_key do |tid|
     else
       cs = ( ts - 1 ) + (( rs - ps )*3 ) + 1
       ce = ( ts - 1 ) + (( re - ps )*3 ) + 1 + 2
+      next if cs < 0
+      next if ce < 0
+      STDERR.puts "Tid: #{tid}, Rs: #{rs}, Re : #{re}, Ts: #{ts}, Te: #{te}, Ps: #{ps}, Pe: #{pe}, Cs: #{cs}, Ce: #{ce}\n"
       outpf.print peph[ tid ].subseq( rs, re ).to_fasta( "#{tid}_#{rs}_#{re} #{domains.join(", ")}", 60 )
       outrf.print rnah[ tid ].subseq( cs, ce ).to_fasta( "#{tid}_#{rs}_#{re} #{domains.join(", ")}", 60 )
     end
   end
 end
 
-STDERR.puts "STEP 4/4 Done, All Steps are Completed!"
+STDERR.puts "STEP 6/6 Done, All Steps are Completed!"
 
