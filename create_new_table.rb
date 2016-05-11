@@ -46,6 +46,7 @@ oh.each_key do |i|
   speAsubid = ""
   speBsubid = ""
   speAid, speBid = oh[i]
+  next if fah[ speAid ] == nil
   fah[ speAid ].each_key do |doms|
     next if fah[ speAid ][ doms ].size > 1
     next if fbh[ speBid ] == nil

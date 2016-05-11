@@ -168,6 +168,8 @@ domain_cluster_h.each_key do |tid|
       ce = ( ts - 1 ) + (( re - ps )*3 ) + 1 + 2
       next if cs < 0
       next if ce < 0
+      next if cs > rnah[ tid ].length
+      next if ce > rnah[ tid ].length
       STDERR.puts "Tid: #{tid}, Rs: #{rs}, Re : #{re}, Ts: #{ts}, Te: #{te}, Ps: #{ps}, Pe: #{pe}, Cs: #{cs}, Ce: #{ce}\n"
       outpf.print peph[ tid ].subseq( rs, re ).to_fasta( "#{tid}_#{rs}_#{re} #{domains.join(", ")}", 60 )
       outrf.print rnah[ tid ].subseq( cs, ce ).to_fasta( "#{tid}_#{rs}_#{re} #{domains.join(", ")}", 60 )
