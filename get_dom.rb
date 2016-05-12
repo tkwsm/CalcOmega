@@ -36,7 +36,7 @@ domtbloutf.each do |x|
   dfrom   = a[19].to_i
   dto     = a[20].to_i
   eval    = a[6].to_f
-  next if eval < 1e-5        ############  Threshold Eval < 1e-5 #######
+  next if eval > 1e-5        ############  Threshold Eval < 1e-5 #######
   dh[ tid ] = {} if dh[ tid ] == nil
   dh[ tid ][ pfamacc ] = [] if dh[ tid ][ pfamacc ] == nil
   dh[ tid ][ pfamacc ] << [ dfrom, dto ]
