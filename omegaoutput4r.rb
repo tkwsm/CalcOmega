@@ -1,5 +1,12 @@
 #!/usr/bin/ruby
 
+##################################################
+if ARGV.size == 0
+  print "omegaoutput4r.rb <output of calcomega>\n"
+  exit
+end
+##################################################
+
 h = {}
 speAgid = ""
 speBgid = ""

@@ -100,13 +100,17 @@ def create_domain_cluster_hash( region_array, dh, tid )
     dh[tid].each_key do |pfamacc|
       dh[ tid ][ pfamacc ].each do |dfrom, dto|
         if     dcto < dfrom
-        elsif  dfrom <= dcto 
+        elsif  dto <= dcfrom
+        elsif dcfrom <= dfrom and dfrom <= dcto 
           domain_cluster_hash[ dc ] << pfamacc
           break
-        elsif dcfrom <= dfrom and  dfrom <= dcto 
+        elsif dcfrom <= dcto  and dcto  <= dto
           domain_cluster_hash[ dc ] << pfamacc
           break
-        elsif dfrom <= dcfrom and dcfrom <=  dto
+        elsif dfrom  <= dcfrom and dcto  <= dto
+          domain_cluster_hash[ dc ] << pfamacc
+          break
+        elsif dcfrom <= dfrom  and dto   <= dcto
           domain_cluster_hash[ dc ] << pfamacc
           break
         elsif dto   <  dcfrom 

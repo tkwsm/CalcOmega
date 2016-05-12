@@ -84,6 +84,7 @@ lwl85m=""
 lpb93=""
 
 # Start Main Loop
+echo "AGID	BGID	CLUSTALSCORE" >$orthologtable.clw
 cat $orthologtable | while read line
 do 
 
@@ -111,7 +112,10 @@ do
   # Create a Temporal File in Local then do ClustalW2 for the Proteins
   newtmppep_fa=${tmppep_fa##*/}
   cp $tmppep_fa $newtmppep_fa.fa
-  clustalw2 -infile=./$newtmppep_fa.fa 1>dnds.err 2>dnds.err
+  gset=$agid$'\t'$bgid
+  gset=`echo $gset`
+  clwscore=`clustalw2 -infile=./$newtmppep_fa.fa 2>dnds.err | grep Alignment |grep Score | awk '{print $3}' `
+  echo -e "$gset\t$clwscore" >>$orthologtable.clw
 
 # Do PAL2NAL
   perl $pal2nal $newtmppep_fa.aln $tmprna_fa -nomismatch -nogap -output paml 1> $tmpaln_4paml 2>>dnds.err
@@ -158,16 +162,54 @@ do
   echo "$agid $bgid $lwl85 $lwl85m $lpb93 "
 
   # Remove Temporal Files
-  rm $tmppep_fa
-  rm $tmprna_fa
-  rm $tmpyn_ctl
-  rm $tmpout_paml
-  rm $tmpaln_4paml
-  rm $tmpyn00_ctl
-  rm $tmppep_aln
-  rm ./$newtmppep_fa.fa
-  rm ./$newtmppep_fa.aln
-  rm ./$newtmppep_fa.dnd
+  if [ -e $tmppep_fa ]; then 
+    rm $tmppep_fa
+  fi 
+  if [ -e $tmprna_fa ]; then
+    rm $tmprna_fa
+  fi
+  if [ -e $tmpyn_ctl ]; then
+    rm $tmpyn_ctl
+  fi
+  if [ -e $tmpout_paml ]; then
+    rm $tmpout_paml
+  fi
+  if [ -e $tmpaln_4paml ]; then
+    rm $tmpaln_4paml
+  fi
+  if [ -e $tmpyn00_ctl ]; then
+    rm $tmpyn00_ctl
+  fi
+  if [ -e $tmppep_aln ]; then
+    rm $tmppep_aln
+  fi
+  if [ -e ./$newtmppep_fa.fa ]; then 
+    rm ./$newtmppep_fa.fa
+  fi
+  if [ -e ./$newtmppep_fa.aln ]; then
+    rm ./$newtmppep_fa.aln
+  fi
+  if [ -e ./$newtmppep_fa.dnd ]; then
+    rm ./$newtmppep_fa.dnd
+  fi
+  if [ -e ./2YN.dN ]; then
+    rm ./2YN.dN
+  fi
+  if [ -e ./2YN.dS ]; then
+    rm ./2YN.dS
+  fi
+  if [ -e ./2YN.t ]; then
+    rm ./2YN.t
+  fi
+  if [ -e ./rst ]; then
+    rm ./rst
+  fi
+  if [ -e ./rst1 ]; then
+    rm ./rst1
+  fi
+  if [ -e ./rub ]; then
+    rm ./rub
+  fi
 
 done
 
