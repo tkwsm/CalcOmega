@@ -114,7 +114,8 @@ do
   cp $tmppep_fa $newtmppep_fa.fa
   gset=$agid$'\t'$bgid
   gset=`echo $gset`
-  clwscore=`clustalw2 -infile=./$newtmppep_fa.fa 2>dnds.err | grep Alignment |grep Score | awk '{print $3}' `
+#  clwscore=`clustalw2 -infile=./$newtmppep_fa.fa 2>dnds.err | grep Alignment |grep Score | awk '{print $3}' `
+  clwscore=`clustalw2 -infile=./$newtmppep_fa.fa 2>dnds.err | grep Sequences | grep Aligned |grep Score | awk '{print $5}' `
   echo -e "$gset\t$clwscore" >>$orthologtable.clw
 
 # Do PAL2NAL
