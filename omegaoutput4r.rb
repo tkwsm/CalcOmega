@@ -22,13 +22,17 @@ a = []
 omegatable.each do |x|
   next if x.downcase =~ /nan/
   a = x.chomp.split("\s")
-  next if x =~ /nan/
   next if a.size != 5
   speAgid = a[0]
   speBgid = a[1]
   lwl85   = a[2]
   lwl85m  = a[3]
   lpb93   = a[4]
+  if x =~ /nan/
+    lwl85  = 0.0 if lwl85  =~ /nan/
+    lwl85m = 0.0 if lwl85m =~ /nan/
+    lpb93  = 0.0 if lpb93  =~ /nan/
+  end
   akey = [speAgid, speBgid]
   aval = [ lwl85, lwl85m, lpb93 ]
   omegah[ akey ] = aval
